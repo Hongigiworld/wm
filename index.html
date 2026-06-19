@@ -1834,6 +1834,8 @@ button[onclick*="splice"]{
   .wm7-hero strong{font-size:36px;line-height:1;font-weight:950;letter-spacing:-1.2px;position:relative;z-index:1}
   .wm7-hero span{position:relative;z-index:1;display:block;margin-top:8px;font-size:13px;opacity:.84;font-weight:650}
   .wm7-flowline{background:rgba(255,255,255,.74);border:1px solid rgba(17,24,39,.06);border-radius:25px;padding:14px;box-shadow:0 12px 32px rgba(15,23,42,.065);display:flex;flex-direction:column;gap:8px;margin-bottom:15px}
+  .wm7-accordion{animation:wm7Slide 0.22s ease;overflow:hidden}
+  @keyframes wm7Slide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
   .wm7-step{width:100%;border:0;background:#fff;border-radius:18px;padding:12px;display:flex;align-items:center;gap:12px;text-align:left;box-shadow:0 6px 18px rgba(15,23,42,.04)}
   .wm7-step.off{opacity:.56;filter:grayscale(.18)}
   .wm7-num{width:32px;height:32px;border-radius:13px;background:#F3F0FF;color:#3F32C9;display:grid;place-items:center;font-size:13px;font-weight:950;flex:0 0 32px}
@@ -2285,6 +2287,7 @@ function rMealSlotIcon(meal,on){
 
 (function(){
  function applySprint5B(){
+   return; // disabled
    try{
      document.querySelectorAll('.tab-btn').forEach(btn=>{
        if(btn.dataset.s5done) return;
@@ -8396,29 +8399,7 @@ function rHome(){
 
     <div style="font-size:12px;font-weight:900;color:#7E7694;letter-spacing:.5px;margin:2px 2px 10px">식단 시작하기</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px">
-<div style="margin-bottom:18px">
-  <button onclick="S._showFlow=!S._showFlow;render()" style="width:100%;border:none;border-radius:18px;background:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 14px 32px rgba(32,25,84,.07);font-weight:800;font-size:15px;color:#171421">
-    <span>🍽️ 식단 플로우 선택</span>
-    <span style="font-size:12px;color:#9A95AA">${S._showFlow?'▲':'▼'}</span>
-  </button>
-  ${S._showFlow?`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px">
-    <button onclick="setFlow('a');S._showFlow=false;go('home')" style="border:none;border-radius:24px;background:#fff;padding:14px 10px;text-align:left;min-height:136px;box-shadow:0 14px 32px rgba(32,25,84,.07);opacity:${S.activeFlow&&S.activeFlow!=='a'?'0.35':'1'}">
-      <div style="width:40px;height:40px;border-radius:16px;background:#EEF9F4;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px">🥕</div>
-      <div style="font-size:14px;font-weight:900;color:#171421;line-height:1.22;letter-spacing:-.5px">냉장고<br>활용</div>
-      <div style="font-size:10px;color:#9A95AA;margin-top:7px;line-height:1.35">${fridgeCount?`${fridgeCount}가지 재료`:'있는 재료로'}</div>
-    </button>
-    <button onclick="setFlow('b');S._showFlow=false;go('home')" style="border:none;border-radius:24px;background:#fff;padding:14px 10px;text-align:left;min-height:136px;box-shadow:0 14px 32px rgba(32,25,84,.07);opacity:${S.activeFlow&&S.activeFlow!=='b'?'0.35':'1'}">
-      <div style="width:40px;height:40px;border-radius:16px;background:#F3F0FF;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px">✨</div>
-      <div style="font-size:14px;font-weight:900;color:#171421;line-height:1.22;letter-spacing:-.5px">추천<br>받기</div>
-      <div style="font-size:10px;color:#9A95AA;margin-top:7px;line-height:1.35">뭐 먹을지<br>모를 때</div>
-    </button>
-    <button onclick="setFlow('c');S._showFlow=false;go('home')" style="border:none;border-radius:24px;background:#fff;padding:14px 10px;text-align:left;min-height:136px;box-shadow:0 14px 32px rgba(32,25,84,.07);opacity:${S.activeFlow&&S.activeFlow!=='c'?'0.35':'1'}">
-      <div style="width:40px;height:40px;border-radius:16px;background:#FFF2E9;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px">🍽️</div>
-      <div style="font-size:14px;font-weight:900;color:#171421;line-height:1.22;letter-spacing:-.5px">직접<br>선택</div>
-      <div style="font-size:10px;color:#9A95AA;margin-top:7px;line-height:1.35">먹고 싶은<br>메뉴로</div>
-    </button>
-  </div>`:''}
-</div>
+      <button onclick="setFlow('a');go('home')" style="border:none;border-radius:24px;background:#fff;padding:14px 10px;text-align:left;min-height:136px;box-shadow:0 14px 32px rgba(32,25,84,.07)">
         <div style="width:40px;height:40px;border-radius:16px;background:#EEF9F4;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px">🥕</div>
         <div style="font-size:14px;font-weight:900;color:#171421;line-height:1.22;letter-spacing:-.5px">냉장고<br>활용</div>
         <div style="font-size:10px;color:#9A95AA;margin-top:7px;line-height:1.35">${fridgeCount?`${fridgeCount}가지 재료`:'있는 재료로'}</div>
@@ -8545,8 +8526,8 @@ function confirmNewPlan(){
 }
 
 function startNewPlan(){
-  // 모든 상태 초기화
   S.mealPlan=null;
+  S.mealCalendar=null;
   S.mealStartDate=null;
   S.cart=[];
   S.bcMenus=[];
@@ -8554,10 +8535,13 @@ function startNewPlan(){
   S.bcSuggested=[];
   S.fridgeAdded=false;
   S.cartDone=false;
+  S.activeFlow=null;
+  S._showFlow=false;
   localStorage.removeItem("wm_cart_done");
-  setFlow(null);
   localStorage.removeItem("wm_meal");
   localStorage.removeItem("wm_meal_start");
+  localStorage.removeItem("wm_cal");
+  localStorage.removeItem("wm_flow");
   render();
 }
 
@@ -10674,8 +10658,10 @@ function getIngredientsFromDB(menus, people){
         // 같은 재료 여러 메뉴에 쓰일 때 합산
         const ex=parseFloat(merged[key].amount)||0;
         const cur=parseFloat(amount)||0;
-        const unit=(amount||'').replace(/[0-9.]/g,'').trim();
+        const unit=(merged[key].amount||amount||'').replace(/[0-9.]/g,'').trim()||'g';
         if(ex&&cur) merged[key].amount=Math.round((ex+cur)*people*10)/10+unit;
+        else if(cur) merged[key].amount=Math.round(cur*people*10)/10+unit;
+        else if(!ex) merged[key].amount=amount||merged[key].amount;
         merged[key].inFridge=merged[key].inFridge||inFridge;
         if(!String(merged[key].usedIn||'').includes(name))
           merged[key].usedIn=(merged[key].usedIn?merged[key].usedIn+', ':'')+name;
@@ -15090,7 +15076,7 @@ window.BEEF_AUDIT_MAP={
       <div class="shop3-icon" onclick="shop3BToggle(${idx})">${item.icon||getIcon(item.name)}</div>
       <div class="shop3-info" onclick="shop3BToggle(${idx})">
         <div class="shop3-name">${item.replaceName||item.name}${hf?'<span class="shop3-badge">❄️ 보유</span>':bought?'<span class="shop3-badge" style="background:#F2F4F7;color:#667085">구매완료</span>':''}</div>
-        <div class="shop3-amount">${item.replaceQty||item.amount||''}''</div>
+        <div class="shop3-amount">${item.replaceQty||item.amount||''}</div>
         <div class="shop3-used">${used}</div>
       </div>
       ${!hf&&!checked&&shopInfo?`<a class="shop3-buy" href="${shopInfo.url}" target="_blank" onclick="event.stopPropagation()">쿠팡</a>`:''}
@@ -15234,7 +15220,7 @@ window.BEEF_AUDIT_MAP={
   window.rBSuggest = rBSuggest = function(){
     var menus=safeArr(S.bcSuggested); var sel=menus.filter(function(m){return m.selected;}).length; var max=totalMeals();
     var list=menus.length?menus.map(function(m,i){var nut=calcNutrition(m.name,1);var seasonal=getSeasonalScore(m.name)>0;var on=!!m.selected;return '<div class="wm-flow-menu-card '+(on?'active':'')+'" onclick="(function(){var cur=S.bcSuggested['+i+'].selected;var cnt=S.bcSuggested.filter(function(m){return m.selected}).length;if(!cur&&cnt>='+max+')return;S.bcSuggested['+i+'].selected=!cur;render();})()"><div class="wm-flow-check '+(on?'active':'')+'">'+(on?'✓':'')+'</div><div class="wm-flow-row-icon">'+(m.type==='아침'?'🌅':m.type==='저녁'?'🌙':'☀️')+'</div><div class="wm-flow-row-main"><b>'+m.name+(seasonal?' <span style="font-size:9px;background:#10B981;color:#fff;border-radius:6px;padding:1px 5px;font-weight:900">제철</span>':'')+'</b><span>'+m.type+' · '+getCookTime(m.name)+'분'+(nut?' · '+(nut.calRange||nut.cal+'kcal'):'')+'</span>'+(m.ingredients&&m.ingredients.length?'<span>'+m.ingredients.slice(0,3).join(' · ')+'</span>':'')+'</div></div>';}).join(''):'<div class="wm-flow-empty">추천 메뉴가 없어요</div>';
-    return '<div class="wm-flow-page">'+flowHeader({kicker:'B FLOW · RECOMMEND',title:'추천 메뉴 선택',sub:'마음에 드는 메뉴를 골라 장보기 목록을 만들어요.',tone:'orange',done:sel?2:1,total:3,heroTitle:sel+'개 선택됨',heroSub:'최대 '+max+'개까지 선택 가능해요.',icon:'🍽️',status:sel?'메뉴 선택 중':'메뉴 선택 필요',back:'go(\'bc-entry\')',backText:'← 이전'})+'<div class="wm-flow-grid">'+stat('추천',menus.length+'개')+stat('선택',sel+'개')+stat('최대',max+'개')+'</div>'+section('🍽️','추천 메뉴','선택한 메뉴 기준으로 장보기 목록을 만들어요',pill(sel?'선택됨':'필요',sel?'done':'wait'),'<div class="wm-flow-list">'+list+'</div>')+'</div><div class="wm-flow-cta"><div style="font-size:12px;color:#8B95A1;text-align:center;margin-bottom:8px;font-weight:750">'+(sel===0?'메뉴를 선택해주세요':(sel<max?(max-sel)+'개 더 선택 가능':'선택 완료'))+'</div><button class="btn-o" '+(!sel?'disabled':'')+' onclick="S.bcMenus=S.bcSuggested.filter(function(m){return m.selected}).map(function(m){return m.name});genBCCart()">🛒 재료 분석하기 ('+sel+'개)</button></div>';
+    return '<div class="wm-flow-page">'+flowHeader({kicker:'B FLOW · RECOMMEND',title:'추천 메뉴 선택',sub:'마음에 드는 메뉴를 골라 장보기 목록을 만들어요.',tone:'orange',done:sel?2:0,total:3,heroTitle:sel+'개 선택됨',heroSub:'최대 '+max+'개까지 선택 가능해요.',icon:'🍽️',status:sel?'메뉴 선택 중':'메뉴 선택 필요',back:'go(\'bc-entry\')',backText:'← 이전'})+'<div class="wm-flow-grid">'+stat('추천',menus.length+'개')+stat('선택',sel+'개')+stat('최대',max+'개')+'</div>'+section('🍽️','추천 메뉴','선택한 메뉴 기준으로 장보기 목록을 만들어요',pill(sel?'선택됨':'필요',sel?'done':'wait'),'<div class="wm-flow-list">'+list+'</div>')+'</div><div class="wm-flow-cta"><div style="font-size:12px;color:#8B95A1;text-align:center;margin-bottom:8px;font-weight:750">'+(sel===0?'메뉴를 선택해주세요':(sel<max?(max-sel)+'개 더 선택 가능':'선택 완료'))+'</div><button class="btn-o" '+(!sel?'disabled':'')+' onclick="S.bcMenus=S.bcSuggested.filter(function(m){return m.selected}).map(function(m){return m.name});genBCCart()">🛒 재료 분석하기 ('+sel+'개)</button></div>';
   };
   window.WM_SPRINT6A_FLOW_WORKSPACE_UNIFICATION={applied:true,scope:'A/B/C flow screens',mode:'wizard-like step UI replaced with tab-consistent workspace UI'};
 })();
@@ -15530,6 +15516,16 @@ window.BEEF_AUDIT_MAP={
   };
   var oldStartBC=window.startBC;
   window.startBC=function(mode){ startMealFlow(mode==='c'?'c':'b'); };
+  window.wm7FlowCards=function(){
+    var a_dim=S.activeFlow&&S.activeFlow!=='a'?' wm7-choice-dim':'';
+    var b_dim=S.activeFlow&&S.activeFlow!=='b'?' wm7-choice-dim':'';
+    var c_dim=S.activeFlow&&S.activeFlow!=='c'?' wm7-choice-dim':'';
+    return '<div class="wm7-accordion wm7-flow-choice" style="margin:4px 0 4px">'+
+      '<button class="wm7-choice'+a_dim+'" onclick="startMealFlow(\'a\')"><i>🥕</i><b>냉장고<br>활용</b><span>저장된 재료로 먼저 계산</span></button>'+
+      '<button class="wm7-choice'+b_dim+'" onclick="startMealFlow(\'b\')"><i>✨</i><b>추천<br>받기</b><span>스타일 기반 메뉴 추천</span></button>'+
+      '<button class="wm7-choice'+c_dim+'" onclick="startMealFlow(\'c\')"><i>🍽️</i><b>직접<br>선택</b><span>먹고 싶은 메뉴 입력</span></button>'+
+    '</div>';
+  };
   window.wm7Step=function(num,title,sub,state,action,tag){
     return '<button class="wm7-step '+(state||'')+'" onclick="'+(action||'')+'"><div class="wm7-num">'+(state==='done'?'✓':num)+'</div><div class="wm7-main"><b>'+title+'</b><span>'+sub+'</span></div><div class="wm7-tag '+(state==='done'?'done':state==='live'?'live':state==='warn'?'warn':'')+'">'+tag+'</div></button>';
   };
@@ -15548,7 +15544,8 @@ window.BEEF_AUDIT_MAP={
     return '<div class="wm7-flowline">'+
       wm7Step(1,'식사 스케줄 설정',plannedCount()+'끼 예정 · '+(S.people||1)+'인분 기준',st>1?'done':st===1?'live':'off',"go('schedule')",st>1?'완료':'설정')+
       wm7Step(2,'식단 플로우 설정','A 냉장고 · B 추천 · C 직접 선택',st>2?'done':st===2?'live':'off',"S._showFlow=!S._showFlow;render()",S.activeFlow?String(S.activeFlow).toUpperCase():'선택')+
-      wm7Step(3,'장바구니','이번 식단에 필요한 임시 재료 목록',st>3?'done':st===3?'live':'off','openCart()',a(S.cart).length?cartLeft+'개':'RAM')+
+      (S._showFlow?wm7FlowCards():'')+
+      wm7Step(3,'장바구니','이번 식단에 필요한 임시 재료 목록',st>3?'done':st===3?'live':'off','openCart()',a(S.cart).length?cartLeft+'개':'준비')+
       wm7Step(4,'냉장고','구매/보유 재료가 저장되는 영구 공간',st>4?'done':st===4?'live':'off',"go('tab-fridge')",fridgeCount+'개')+
       wm7Step(5,'식단 생성','스케줄 + 플로우 + 장바구니 + 냉장고 반영',S.mealPlan?'done':st===5?'live':'off',S.mealPlan?"go('tab-meal')":"openCart()",S.mealPlan?'완료':'생성')+
       wm7Step(6,'식단 → 일기','생성된 식단을 실제 섭취 기록으로 남김',S.mealPlan?'live':'off',"go('tab-diary')",S.mealPlan?'기록':'로그')+
@@ -15566,10 +15563,6 @@ window.BEEF_AUDIT_MAP={
       '<div><div class="wm7-kicker">WEEKLY MEAL</div><div class="wm7-title">스마트하게 건강하게</div><div class="wm7-sub"></div></div>'+
       '<div class="wm7-hero"><b>'+ (hasMeal?'이번 주 식단 준비 완료':'다음 식단 준비 상태') +'</b><strong>'+(hasMeal?'완료':plannedCount()+'끼')+'</strong><span>냉장고 '+fridge.length+'개 · 장바구니 '+cart.length+'개 · '+(S.people||1)+'인분</span></div>'+
       wm7FlowLine()+
-      (!hasMeal&&S._showFlow?'<div class="wm7-section-title">2. 식단 플로우 설정</div><div class="wm7-flow-choice">'+
-        '<button class="wm7-choice'+(S.activeFlow&&S.activeFlow!=='a'?' wm7-choice-dim':'')+'" onclick="startMealFlow(\'a\')"><i>🥕</i><b>냉장고<br>활용</b><span>저장된 재료로 먼저 계산</span></button>'+
-        '<button class="wm7-choice'+(S.activeFlow&&S.activeFlow!=='b'?' wm7-choice-dim':'')+'" onclick="startMealFlow(\'b\')"><i>✨</i><b>추천<br>받기</b><span>스타일 기반 메뉴 추천</span></button>'+
-        '<button class="wm7-choice'+(S.activeFlow&&S.activeFlow!=='c'?' wm7-choice-dim':'')+'" onclick="startMealFlow(\'c\')"><i>🍽️</i><b>직접<br>선택</b><span>먹고 싶은 메뉴 입력</span></button></div>':'')
       (hasMeal?'<div class="wm7-duo"><button class="wm7-primary" onclick="go(\'tab-meal\')">📅 이번 주 식단 보기</button><button class="wm7-secondary" onclick="go(\'tab-diary\')">📔 식단 일기</button></div><div style="height:10px"></div><button class="wm7-secondary" onclick="confirmNewPlan()">🔄 새 식단 다시 짜기</button>':'')+
       (cart.length?'<div class="wm7-section-title">3. 장바구니 RAM</div><div class="wm7-card"><div class="wm7-row"><div><b>현재 장바구니</b><br><span>'+cartLeft+'개 남음 · 냉장고 반영 전 임시 목록</span></div><button class="wm7-secondary" style="width:auto;padding:0 16px" onclick="openCart()">열기</button></div></div>':'')+
     '</div>';
