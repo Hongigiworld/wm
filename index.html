@@ -15545,7 +15545,7 @@ window.BEEF_AUDIT_MAP={
     var cart=a(S.cart), fridge=a(S.fridge);
     var cartLeft=cart.filter(function(i){return !i.checked}).length;
     return '<div class="wm7-page">'+
-      '<div><div class="wm7-kicker">WEEKLY MEAL FLOW</div><div class="wm7-title">식단 흐름 정리</div><div class="wm7-sub">스케줄 → 플로우 → 장바구니(RAM) → 냉장고(저장소) → 식단 → 일기 순서로 진행해요.</div></div>'+
+      '<div><div class="wm7-kicker">WEEKLY MEAL</div><div class="wm7-title">스마트하게 건강하게</div><div class="wm7-sub"></div></div>'+
       '<div class="wm7-hero"><b>'+ (hasMeal?'이번 주 식단 준비 완료':'다음 식단 준비 상태') +'</b><strong>'+(hasMeal?'완료':plannedCount()+'끼')+'</strong><span>냉장고 '+fridge.length+'개 · 장바구니 '+cart.length+'개 · '+(S.people||1)+'인분</span></div>'+
       wm7FlowLine()+
       (!hasMeal?'<div class="wm7-section-title">2. 식단 플로우 설정</div><div class="wm7-flow-choice">'+
