@@ -1896,7 +1896,63 @@ button[onclick*="splice"]{
   .tab-bar{width:calc(100% - 28px)!important;bottom:12px!important;}
   .bottom-bar,.wm-flow-cta,.fridge-cta,.s4d-fridge-bottom{width:calc(100% - 28px)!important;bottom:86px!important;}
 }
+/* ===== FINAL FIX: Bottom Tab Bar Geometry ===== */
+html,
+body {
+  width: 100%;
+  overflow-x: hidden !important;
+}
 
+#app {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto !important;
+  overflow-x: hidden !important;
+}
+
+.tab-bar {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 12px !important;
+  transform: translateX(-50%) !important;
+  width: min(calc(100vw - 48px), 432px) !important;
+  max-width: 432px !important;
+  height: 72px !important;
+  margin: 0 !important;
+  padding: 8px 8px 10px !important;
+  box-sizing: border-box !important;
+  border-radius: 24px !important;
+  z-index: 9990 !important;
+}
+
+.tab-btn {
+  min-width: 0 !important;
+  flex: 1 1 0 !important;
+  transform: none !important;
+}
+
+.tab-btn.meal-main {
+  transform: none !important;
+}
+
+.bottom-bar,
+.fridge-cta,
+.s4d-fridge-bottom,
+.wm-flow-cta {
+  left: 50% !important;
+  right: auto !important;
+  bottom: 92px !important;
+  transform: translateX(-50%) !important;
+  width: min(calc(100vw - 48px), 432px) !important;
+  max-width: 432px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.screen {
+  padding-bottom: 128px !important;
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js"></script>
 </head>
