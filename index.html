@@ -2941,8 +2941,9 @@ function openStyleDrop(){
         }
 
         btn.addEventListener('click',function(){
-          pushStyle(s.id, true);
-          // 선택 후 목록 갱신
+          // 재클릭 시 선택 해제(undo), 미선택 시 선택
+          if(S.bcStyles.includes(s.id)) removeStyle(s.id, true);
+          else pushStyle(s.id, true);
           const q2=document.getElementById('style-search-modal')?.value||'';
           buildList(q2);
         });
