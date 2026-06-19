@@ -1846,7 +1846,7 @@ button[onclick*="splice"]{
   .wm7-section-title{font-size:13px;font-weight:900;color:#7C8698;margin:18px 2px 9px}
   .wm7-flow-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
   .wm7-choice-dim{opacity:0.35;filter:grayscale(0.4);}
-  .wm7-choice{border:1px solid rgba(17,24,39,.06);background:#fff;border-radius:24px;padding:14px 12px;text-align:left;min-height:126px;box-shadow:0 12px 28px rgba(15,23,42,.055);transition:transform .14s ease, box-shadow .14s ease} .wm7-choice:active{transform:scale(.985)}
+  .wm7-choice{border:1px solid rgba(17,24,39,.06);background:#fff;border-radius:24px;padding:15px 12px;text-align:left;min-height:142px;box-shadow:0 12px 28px rgba(15,23,42,.055)}
   .wm7-choice i{font-style:normal;width:42px;height:42px;border-radius:17px;background:#F3F0FF;display:grid;place-items:center;font-size:22px;margin-bottom:12px}.wm7-choice b{display:block;font-size:15px;line-height:1.15;color:#111827;letter-spacing:-.4px}.wm7-choice span{display:block;margin-top:7px;font-size:11px;line-height:1.35;color:#7C8698;font-weight:650}
   .wm7-card{border:1px solid rgba(17,24,39,.06);background:rgba(255,255,255,.92);border-radius:24px;padding:15px;box-shadow:0 12px 28px rgba(15,23,42,.055);margin-bottom:10px}
   .wm7-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.wm7-row b{font-size:15px}.wm7-row span{font-size:12px;color:#7C8698;font-weight:650}
@@ -1854,24 +1854,49 @@ button[onclick*="splice"]{
   @media(max-width:390px){.wm7-choice{min-height:132px;padding:13px 10px}.wm7-choice b{font-size:14px}.wm7-title{font-size:26px}}
 
 
-/* ===== INDEX CLEANUP PATCH v1 =====
-   - Home subtitle gap removed
-   - Flow picker is accordion-style
-   - Cart state labels: 대기/준비/완료
-*/
-.wm7-flowline{gap:9px!important;}
-.wm7-step{min-height:62px!important;}
-.wm7-accordion.wm7-flow-choice{margin:2px 0 8px!important;padding:2px 0 4px!important;}
-.wm7-accordion .wm7-choice{min-height:118px!important;padding:13px 11px!important;}
-.wm7-accordion .wm7-choice i{width:38px!important;height:38px!important;margin-bottom:9px!important;}
-.wm7-accordion .wm7-choice b{font-size:14px!important;}
-.wm7-accordion .wm7-choice span{font-size:10.5px!important;}
-.wm7-tag{min-width:38px;text-align:center;}
-@media (max-width:390px){
-  .wm7-page{padding-left:16px!important;padding-right:16px!important;}
-  .wm7-accordion.wm7-flow-choice{gap:8px!important;}
-  .wm7-accordion .wm7-choice{min-height:110px!important;padding:12px 9px!important;}
+/* ===== SPRINT6F TAB/PAGE POSITION FIX ===== */
+.tab-bar{
+  position:fixed!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:14px!important;
+  transform:translateX(-50%)!important;
+  width:calc(100% - 40px)!important;
+  max-width:416px!important;
+  height:64px!important;
+  padding:7px 10px!important;
+  border-radius:24px!important;
+  z-index:120!important;
 }
+.tab-btn,.tab-btn.meal-main{
+  transform:none!important;
+}
+.tab-bar .tab-btn span{
+  font-size:9.5px!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+}
+.tab-bar .tab-btn>div{
+  width:27px!important;
+  height:27px!important;
+  font-size:16px!important;
+}
+.screen{
+  padding-bottom:108px!important;
+}
+.bottom-bar,.wm-flow-cta,.fridge-cta,.s4d-fridge-bottom{
+  left:50%!important;
+  right:auto!important;
+  bottom:88px!important;
+  transform:translateX(-50%)!important;
+  width:calc(100% - 40px)!important;
+  max-width:416px!important;
+}
+@media (max-width:390px){
+  .tab-bar{width:calc(100% - 28px)!important;bottom:12px!important;}
+  .bottom-bar,.wm-flow-cta,.fridge-cta,.s4d-fridge-bottom{width:calc(100% - 28px)!important;bottom:86px!important;}
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js"></script>
 </head>
@@ -8238,7 +8263,7 @@ function render(){
   else if(s==="tab-cart") html+=rCartTab();
   html+='</div>';
   if(!noTab){
-    const tabs=[{k:"home",i:"🏠",l:"홈"},{k:"tab-fridge",i:"❄️",l:"냉장고"},{k:"tab-meal",i:"📅",l:"식단표"},{k:"tab-diary",i:"📔",l:"일기"},{k:"tab-cart",i:"🛒",l:"장보기"}];
+    const tabs=[{k:"home",i:"🏠",l:"홈"},{k:"tab-fridge",i:"❄️",l:"냉장고"},{k:"tab-meal",i:"📅",l:"식단표"},{k:"tab-diary",i:"📔",l:"식단일기"},{k:"tab-cart",i:"🛒",l:"장보기"}];
     html+=`<div class="tab-bar">${tabs.map(t=>`<button class="tab-btn" onclick="go('${t.k}')"><div style="width:28px;height:28px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;background:${S.screen===t.k?"var(--primary-pale)":"transparent"}">${t.i}</div><span style="font-size:10px;color:${S.screen===t.k?"var(--primary)":"var(--text-sub)"};font-weight:${S.screen===t.k?700:500}">${t.l}</span>${t.k==="tab-cart"&&S.cart.length>0?'<span style="position:absolute;top:8px;right:10px;width:7px;height:7px;background:var(--accent);border-radius:50%"></span>':""}</button>`).join("")}</div>`;
   }
   document.getElementById("app").innerHTML=html;
@@ -15240,7 +15265,7 @@ window.BEEF_AUDIT_MAP={
   window.rBSuggest = rBSuggest = function(){
     var menus=safeArr(S.bcSuggested); var sel=menus.filter(function(m){return m.selected;}).length; var max=totalMeals();
     var list=menus.length?menus.map(function(m,i){var nut=calcNutrition(m.name,1);var seasonal=getSeasonalScore(m.name)>0;var on=!!m.selected;return '<div class="wm-flow-menu-card '+(on?'active':'')+'" onclick="(function(){var cur=S.bcSuggested['+i+'].selected;var cnt=S.bcSuggested.filter(function(m){return m.selected}).length;if(!cur&&cnt>='+max+')return;S.bcSuggested['+i+'].selected=!cur;render();})()"><div class="wm-flow-check '+(on?'active':'')+'">'+(on?'✓':'')+'</div><div class="wm-flow-row-icon">'+(m.type==='아침'?'🌅':m.type==='저녁'?'🌙':'☀️')+'</div><div class="wm-flow-row-main"><b>'+m.name+(seasonal?' <span style="font-size:9px;background:#10B981;color:#fff;border-radius:6px;padding:1px 5px;font-weight:900">제철</span>':'')+'</b><span>'+m.type+' · '+getCookTime(m.name)+'분'+(nut?' · '+(nut.calRange||nut.cal+'kcal'):'')+'</span>'+(m.ingredients&&m.ingredients.length?'<span>'+m.ingredients.slice(0,3).join(' · ')+'</span>':'')+'</div></div>';}).join(''):'<div class="wm-flow-empty">추천 메뉴가 없어요</div>';
-    return '<div class="wm-flow-page">'+flowHeader({kicker:'B FLOW · RECOMMEND',title:'추천 메뉴 선택',sub:'마음에 드는 메뉴를 골라 장보기 목록을 만들어요.',tone:'orange',done:sel?2:0,total:3,heroTitle:sel+'개 선택됨',heroSub:'최대 '+max+'개까지 선택 가능해요.',icon:'🍽️',status:sel?'메뉴 선택 중':'메뉴 선택 필요',back:'go(\'bc-entry\')',backText:'← 이전'})+'<div class="wm-flow-grid">'+stat('추천',menus.length+'개')+stat('선택',sel+'개')+stat('최대',max+'개')+'</div>'+section('🍽️','추천 메뉴','선택한 메뉴 기준으로 장보기 목록을 만들어요',pill(sel?'선택됨':'필요',sel?'done':'wait'),'<div class="wm-flow-list">'+list+'</div>')+'</div><div class="wm-flow-cta"><div style="font-size:12px;color:#8B95A1;text-align:center;margin-bottom:8px;font-weight:750">'+(sel===0?'메뉴를 선택해주세요':(sel<max?(max-sel)+'개 더 선택 가능':'선택 완료'))+'</div><button class="btn-o" '+(!sel?'disabled':'')+' onclick="S.bcMenus=S.bcSuggested.filter(function(m){return m.selected}).map(function(m){return m.name});genBCCart()">🛒 재료 분석하기 ('+sel+'개)</button></div>';
+    return '<div class="wm-flow-page">'+flowHeader({kicker:'B FLOW · RECOMMEND',title:'추천 메뉴 선택',sub:'마음에 드는 메뉴를 골라 장보기 목록을 만들어요.',tone:'orange',done:sel,total:max,heroTitle:sel+'개 선택됨',heroSub:'최대 '+max+'개까지 선택 가능해요.',icon:'🍽️',status:sel?'메뉴 선택 중':'메뉴 선택 필요',back:'go(\'bc-entry\')',backText:'← 이전'})+'<div class="wm-flow-grid">'+stat('추천',menus.length+'개')+stat('선택',sel+'개')+stat('최대',max+'개')+'</div>'+section('🍽️','추천 메뉴','선택한 메뉴 기준으로 장보기 목록을 만들어요',pill(sel?'선택됨':'필요',sel?'done':'wait'),'<div class="wm-flow-list">'+list+'</div>')+'</div><div class="wm-flow-cta"><div style="font-size:12px;color:#8B95A1;text-align:center;margin-bottom:8px;font-weight:750">'+(sel===0?'메뉴를 선택해주세요':(sel<max?(max-sel)+'개 더 선택 가능':'선택 완료'))+'</div><button class="btn-o" '+(!sel?'disabled':'')+' onclick="S.bcMenus=S.bcSuggested.filter(function(m){return m.selected}).map(function(m){return m.name});genBCCart()">🛒 재료 분석하기 ('+sel+'개)</button></div>';
   };
   window.WM_SPRINT6A_FLOW_WORKSPACE_UNIFICATION={applied:true,scope:'A/B/C flow screens',mode:'wizard-like step UI replaced with tab-consistent workspace UI'};
 })();
@@ -15563,9 +15588,9 @@ window.BEEF_AUDIT_MAP={
     var fridgeCount=a(S.fridge).length;
     return '<div class="wm7-flowline">'+
       wm7Step(1,'식사 스케줄 설정',plannedCount()+'끼 예정 · '+(S.people||1)+'인분 기준',st>1?'done':st===1?'live':'off',"go('schedule')",st>1?'완료':'설정')+
-      wm7Step(2,'식단 플로우 설정','A 냉장고 · B 추천 · C 직접 선택',st>2?'done':st===2?'live':'off',"S._showFlow=!S._showFlow;render()",S.activeFlow?String(S.activeFlow).toUpperCase():(S._showFlow?'닫기':'선택'))+
+      wm7Step(2,'식단 플로우 설정','A 냉장고 · B 추천 · C 직접 선택',st>2?'done':st===2?'live':'off',"S._showFlow=!S._showFlow;render()",S.activeFlow?String(S.activeFlow).toUpperCase():'선택')+
       (S._showFlow?wm7FlowCards():'')+
-      wm7Step(3,'장바구니','이번 식단에 필요한 임시 재료 목록',st>3?'done':st===3?'live':'off','openCart()',S.cartDone?'완료':(a(S.cart).length?'준비':'대기'))+
+      wm7Step(3,'장바구니','이번 식단에 필요한 임시 재료 목록',st>3?'done':st===3?'live':'off','openCart()',a(S.cart).length?cartLeft+'개':'준비')+
       wm7Step(4,'냉장고','구매/보유 재료가 저장되는 영구 공간',st>4?'done':st===4?'live':'off',"go('tab-fridge')",fridgeCount+'개')+
       wm7Step(5,'식단 생성','스케줄 + 플로우 + 장바구니 + 냉장고 반영',S.mealPlan?'done':st===5?'live':'off',S.mealPlan?"go('tab-meal')":"openCart()",S.mealPlan?'완료':'생성')+
       wm7Step(6,'식단 → 일기','생성된 식단을 실제 섭취 기록으로 남김',S.mealPlan?'live':'off',"go('tab-diary')",S.mealPlan?'기록':'로그')+
@@ -15580,11 +15605,11 @@ window.BEEF_AUDIT_MAP={
     var cart=a(S.cart), fridge=a(S.fridge);
     var cartLeft=cart.filter(function(i){return !i.checked}).length;
     return '<div class="wm7-page">'+
-      '<div><div class="wm7-kicker">WEEKLY MEAL</div><div class="wm7-title">스마트하게 건강하게</div></div>'+
+      '<div><div class="wm7-kicker">WEEKLY MEAL</div><div class="wm7-title">스마트하게 건강하게</div><div class="wm7-sub"></div></div>'+
       '<div class="wm7-hero"><b>'+ (hasMeal?'이번 주 식단 준비 완료':'다음 식단 준비 상태') +'</b><strong>'+(hasMeal?'완료':plannedCount()+'끼')+'</strong><span>냉장고 '+fridge.length+'개 · 장바구니 '+cart.length+'개 · '+(S.people||1)+'인분</span></div>'+
       wm7FlowLine()+
       (hasMeal?'<div class="wm7-duo"><button class="wm7-primary" onclick="go(\'tab-meal\')">📅 이번 주 식단 보기</button><button class="wm7-secondary" onclick="go(\'tab-diary\')">📔 식단 일기</button></div><div style="height:10px"></div><button class="wm7-secondary" onclick="confirmNewPlan()">🔄 새 식단 다시 짜기</button>':'')+
-      (cart.length?'<div class="wm7-section-title">3. 장바구니</div><div class="wm7-card"><div class="wm7-row"><div><b>현재 장바구니</b><br><span>'+(S.cartDone?'완료 · 냉장고 반영 가능':cartLeft+'개 남음 · 구매 전 임시 목록')+'</span></div><button class="wm7-secondary" style="width:auto;padding:0 16px" onclick="openCart()">열기</button></div></div>':'')+
+      (cart.length?'<div class="wm7-section-title">3. 장바구니 RAM</div><div class="wm7-card"><div class="wm7-row"><div><b>현재 장바구니</b><br><span>'+cartLeft+'개 남음 · 냉장고 반영 전 임시 목록</span></div><button class="wm7-secondary" style="width:auto;padding:0 16px" onclick="openCart()">열기</button></div></div>':'')+
     '</div>';
   };
   window.rHomeDone=function(){return rHome();};
