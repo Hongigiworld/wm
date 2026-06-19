@@ -1843,6 +1843,7 @@ button[onclick*="splice"]{
   .wm7-tag{font-size:11px;font-weight:900;border-radius:999px;padding:5px 8px;background:#F3F4F8;color:#7C8698;white-space:nowrap}.wm7-tag.done{background:#ECFDF5;color:#047857}.wm7-tag.live{background:#F3F0FF;color:#3F32C9}.wm7-tag.warn{background:#FFF7ED;color:#C2410C}
   .wm7-section-title{font-size:13px;font-weight:900;color:#7C8698;margin:18px 2px 9px}
   .wm7-flow-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
+  .wm7-choice-dim{opacity:0.35;filter:grayscale(0.4);}
   .wm7-choice{border:1px solid rgba(17,24,39,.06);background:#fff;border-radius:24px;padding:15px 12px;text-align:left;min-height:142px;box-shadow:0 12px 28px rgba(15,23,42,.055)}
   .wm7-choice i{font-style:normal;width:42px;height:42px;border-radius:17px;background:#F3F0FF;display:grid;place-items:center;font-size:22px;margin-bottom:12px}.wm7-choice b{display:block;font-size:15px;line-height:1.15;color:#111827;letter-spacing:-.4px}.wm7-choice span{display:block;margin-top:7px;font-size:11px;line-height:1.35;color:#7C8698;font-weight:650}
   .wm7-card{border:1px solid rgba(17,24,39,.06);background:rgba(255,255,255,.92);border-radius:24px;padding:15px;box-shadow:0 12px 28px rgba(15,23,42,.055);margin-bottom:10px}
@@ -8447,7 +8448,6 @@ function rHome(){
       </div>
     </div>
 
-    <button onclick="confirmResetMeal()" style="display:block;margin:18px auto 0;border:none;background:none;color:#B4AFC1;font-size:12px;font-weight:700;padding:8px">초기화 · 스케줄 재설정</button>
   </div>`;
 }
 
@@ -8551,7 +8551,6 @@ function rHomeA(){
           <div style="font-size:11px;color:#aaa">A 플로우</div>
         </div>
       </div>
-      <button onclick="S.mealPlan?confirmNewPlan():resetFlow()" style="background:#f5f5f5;border:none;border-radius:10px;padding:8px 12px;font-size:12px;color:#888;font-weight:600">✕ 초기화</button>
     </div>
   </div>
   <div style="padding:120px 20px 24px">
@@ -8606,7 +8605,6 @@ function rHomeB(){
           <div style="font-size:11px;color:#aaa">B 플로우</div>
         </div>
       </div>
-      <button onclick="S.mealPlan?confirmNewPlan():resetFlow()" style="background:#f5f5f5;border:none;border-radius:10px;padding:8px 12px;font-size:12px;color:#888;font-weight:600">✕ 초기화</button>
     </div>
   </div>
   <div style="padding:120px 20px 24px">
@@ -8654,7 +8652,6 @@ function rHomeC(){
           <div style="font-size:11px;color:#aaa">C 플로우</div>
         </div>
       </div>
-      <button onclick="S.mealPlan?confirmNewPlan():resetFlow()" style="background:#f5f5f5;border:none;border-radius:10px;padding:8px 12px;font-size:12px;color:#888;font-weight:600">✕ 초기화</button>
     </div>
   </div>
   <div style="padding:120px 20px 24px">
@@ -15528,7 +15525,7 @@ window.BEEF_AUDIT_MAP={
     var fridgeCount=a(S.fridge).length;
     return '<div class="wm7-flowline">'+
       wm7Step(1,'식사 스케줄 설정',plannedCount()+'끼 예정 · '+(S.people||1)+'인분 기준',st>1?'done':st===1?'live':'off',"go('schedule')",st>1?'완료':'설정')+
-      wm7Step(2,'식단 플로우 설정','A 냉장고 · B 추천 · C 직접 선택',st>2?'done':st===2?'live':'off',"go('home')",S.activeFlow?String(S.activeFlow).toUpperCase():'선택')+
+      wm7Step(2,'식단 플로우 설정','A 냉장고 · B 추천 · C 직접 선택',st>2?'done':st===2?'live':'off',"S._showFlow=!S._showFlow;render()",S.activeFlow?String(S.activeFlow).toUpperCase():'선택')+
       wm7Step(3,'장바구니','이번 식단에 필요한 임시 재료 목록',st>3?'done':st===3?'live':'off','openCart()',a(S.cart).length?cartLeft+'개':'RAM')+
       wm7Step(4,'냉장고','구매/보유 재료가 저장되는 영구 공간',st>4?'done':st===4?'live':'off',"go('tab-fridge')",fridgeCount+'개')+
       wm7Step(5,'식단 생성','스케줄 + 플로우 + 장바구니 + 냉장고 반영',S.mealPlan?'done':st===5?'live':'off',S.mealPlan?"go('tab-meal')":"openCart()",S.mealPlan?'완료':'생성')+
@@ -15547,10 +15544,10 @@ window.BEEF_AUDIT_MAP={
       '<div><div class="wm7-kicker">WEEKLY MEAL</div><div class="wm7-title">스마트하게 건강하게</div><div class="wm7-sub"></div></div>'+
       '<div class="wm7-hero"><b>'+ (hasMeal?'이번 주 식단 준비 완료':'다음 식단 준비 상태') +'</b><strong>'+(hasMeal?'완료':plannedCount()+'끼')+'</strong><span>냉장고 '+fridge.length+'개 · 장바구니 '+cart.length+'개 · '+(S.people||1)+'인분</span></div>'+
       wm7FlowLine()+
-      (!hasMeal?'<div class="wm7-section-title">2. 식단 플로우 설정</div><div class="wm7-flow-choice">'+
-        '<button class="wm7-choice" onclick="startMealFlow(\'a\')"><i>🥕</i><b>냉장고<br>활용</b><span>저장된 재료로 먼저 계산</span></button>'+
-        '<button class="wm7-choice" onclick="startMealFlow(\'b\')"><i>✨</i><b>추천<br>받기</b><span>스타일 기반 메뉴 추천</span></button>'+
-        '<button class="wm7-choice" onclick="startMealFlow(\'c\')"><i>🍽️</i><b>직접<br>선택</b><span>먹고 싶은 메뉴 입력</span></button></div>':'')+
+      (!hasMeal&&S._showFlow?'<div class="wm7-section-title">2. 식단 플로우 설정</div><div class="wm7-flow-choice">'+
+        '<button class="wm7-choice'+(S.activeFlow&&S.activeFlow!=='a'?' wm7-choice-dim':'')+'" onclick="startMealFlow(\'a\')"><i>🥕</i><b>냉장고<br>활용</b><span>저장된 재료로 먼저 계산</span></button>'+
+        '<button class="wm7-choice'+(S.activeFlow&&S.activeFlow!=='b'?' wm7-choice-dim':'')+'" onclick="startMealFlow(\'b\')"><i>✨</i><b>추천<br>받기</b><span>스타일 기반 메뉴 추천</span></button>'+
+        '<button class="wm7-choice'+(S.activeFlow&&S.activeFlow!=='c'?' wm7-choice-dim':'')+'" onclick="startMealFlow(\'c\')"><i>🍽️</i><b>직접<br>선택</b><span>먹고 싶은 메뉴 입력</span></button></div>':'')
       (hasMeal?'<div class="wm7-duo"><button class="wm7-primary" onclick="go(\'tab-meal\')">📅 이번 주 식단 보기</button><button class="wm7-secondary" onclick="go(\'tab-diary\')">📔 식단 일기</button></div><div style="height:10px"></div><button class="wm7-secondary" onclick="confirmNewPlan()">🔄 새 식단 다시 짜기</button>':'')+
       (cart.length?'<div class="wm7-section-title">3. 장바구니 RAM</div><div class="wm7-card"><div class="wm7-row"><div><b>현재 장바구니</b><br><span>'+cartLeft+'개 남음 · 냉장고 반영 전 임시 목록</span></div><button class="wm7-secondary" style="width:auto;padding:0 16px" onclick="openCart()">열기</button></div></div>':'')+
     '</div>';
